@@ -1,5 +1,5 @@
 const http = require('http');
-const htmlHandler = require('./htmlResponses.js');
+const responseHandler = require('./responses.js');
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
@@ -8,13 +8,26 @@ const onRequest = (request, response) => {
 
   switch (request.url) {
     case '/':
-      htmlHandler.getIndex(request, response);
+      responseHandler.getIndex(request, response);
       break;
     case '/style.css':
-      htmlHandler.getStyle(request, response);
+      responseHandler.getStyle(request, response);
+      break;
+    case '/success':
+      responseHandler.getSuccess(request, response);
+      break;
+    case '/badRequest':
+      break;
+    case '/unauthorized':
+      break;
+    case '/forbidden':
+      break;
+    case '/internal':
+      break;
+    case '/notImplemented':
       break;
     default:
-      htmlHandler.getIndex(request, response);
+      responseHandler.getIndex(request, response);
       break;
   }
 };
