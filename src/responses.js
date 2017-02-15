@@ -1,4 +1,4 @@
-//No commenting requirements!  Woohoo!
+// No commenting requirements!  Woohoo!
 
 const fs = require('fs');
 
@@ -17,7 +17,7 @@ const getStyle = (request, response) => {
   response.end();
 };
 
-/// Returns a generic "success" response for both JSON and XML
+// / Returns a generic "success" response for both JSON and XML
 const getSuccess = (request, response) => {
   let message = 'Oops, something went wrong.';
   if (request.headers.accept === 'text/xml') {
@@ -25,7 +25,7 @@ const getSuccess = (request, response) => {
     message = '<response><message>Great job, much success!</message></response>';
   } else { // defaults to JSON
     response.writeHead(200, { 'Content-Type': 'application/json' });
-    message = '{"message":"Great job, much success!"';
+    message = '{"message":"Great job, much success!"}';
   }
   response.write(message);
   response.end();
