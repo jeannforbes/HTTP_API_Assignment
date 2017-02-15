@@ -1,3 +1,6 @@
+<!-- Mostly implemented by Jeannette Forbes -->
+<!-- Skeleton code courtesy of Cody Van De Mark -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,9 +8,8 @@
   <link rel="stylesheet" type="text/css" href="/style.css">
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
-  <script type="text/babel">
-
-  </script>
+  <script type="text/babel"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 <body>
   <section id="top">
@@ -28,6 +30,39 @@
     <button id="send">Send</button>
   </section>
   <section id="content">
+    <h3></h3>
+    <p></p>
   </section>
 </body>
+<script>
+
+  var sendButton = document.querySelector("#send");
+  var content = document.querySelector("#content");
+  var page = document.querySelector("#page");
+  var type = document.querySelector("#type");
+
+  sendButton.onclick = function(){
+    $.ajax({
+      headers:{
+        Accept: type.value,
+      },
+      url: page.value,
+      complete: function(result){
+        if(type.value == "text/xml") {
+          console.log(result.responseXML);
+          updatePage(page.value, result.responseXML.querySelector("message").innerHTML);
+        }
+        else {
+          console.log(result.responseJSON);
+          updatePage(page.value, result.responseJSON.message);
+        }
+      },
+    });
+  };
+
+  function updatePage(title, text){
+    content.querySelector("h3").innerHTML = title;
+    content.querySelector("p").innerHTML = text;
+  }
+</script>
 </html>
